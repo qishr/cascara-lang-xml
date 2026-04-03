@@ -1,6 +1,10 @@
-package io.github.qishr.cascara.lang.xml;
+package io.github.qishr.cascara.lang.xml.processor;
 
 import io.github.qishr.cascara.common.diagnostic.Reporter;
+import io.github.qishr.cascara.lang.xml.XmlDocument;
+import io.github.qishr.cascara.lang.xml.ast.XmlNode;
+import io.github.qishr.cascara.lang.xml.exception.XmlException;
+import io.github.qishr.cascara.lang.xml.token.XmlToken;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -17,7 +21,7 @@ public class XmlParser {
 
     }
 
-    public Xml parse(String xmlString) throws XmlException {
+    public XmlDocument parse(String xmlString) throws XmlException {
         XmlTokenizer tokenizer = new XmlTokenizer();
         this.tokens = tokenizer.tokenize(xmlString);
         Deque<XmlNode> nodeStack = new ArrayDeque<>();
@@ -73,7 +77,7 @@ public class XmlParser {
                     break;
             }
         }
-        return new Xml(rootNode);
+        return new XmlDocument(rootNode);
     }
 
     // @Override

@@ -1,4 +1,4 @@
-package io.github.qishr.cascara.lang.xml;
+package io.github.qishr.cascara.lang.xml.token;
 
 public class XmlToken {
     public enum Type { START_TAG, END_TAG, ATTRIBUTE, TEXT, COMMENT, CDATA, PROCESSING_INSTRUCTION }

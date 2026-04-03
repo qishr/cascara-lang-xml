@@ -8,19 +8,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import io.github.qishr.cascara.common.diagnostic.Diagnostic.Level;
+import io.github.qishr.cascara.lang.xml.ast.XmlNode;
+import io.github.qishr.cascara.lang.xml.processor.XmlParser;
 import io.github.qishr.cascara.common.diagnostic.Reporter;
 import io.github.qishr.cascara.common.diagnostic.SimpleReporter;
 
-public class Xml {
+public class XmlDocument {
     XmlNode root = null;
 
-   public static Xml readFile(Path path, Charset encoding) throws Exception {
+   public static XmlDocument readFile(Path path, Charset encoding) throws Exception {
       byte[] encoded = Files.readAllBytes(path);
       String yamlString = new String(encoded, encoding);
-      return new Xml(yamlString);
+      return new XmlDocument(yamlString);
    }
 
-   public static Xml load(InputStream is) throws Exception {
+   public static XmlDocument load(InputStream is) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(is));
       StringBuilder sb = new StringBuilder();
 
@@ -30,10 +32,10 @@ public class Xml {
          sb.append("\n");
       }
 
-      return new Xml(sb.toString());
+      return new XmlDocument(sb.toString());
    }
 
-   public Xml(String xmlString) throws Exception {
+   public XmlDocument(String xmlString) throws Exception {
 //       XmlTokenizerImpl tokenizer = new XmlTokenizerImpl();
 //       List<XmlToken> tokens = tokenizer.tokenize(xmlString);
        Reporter reporter = new SimpleReporter();
@@ -42,11 +44,8 @@ public class Xml {
        this.root = parser.parse(xmlString).getRoot();
    }
 
-   public Xml(XmlNode root) {
+   public XmlDocument(XmlNode root) {
       this.root = root;
-   }
-
-   private Xml() {
    }
 
    public XmlNode getRoot() {

@@ -4,6 +4,8 @@ module cascara.lang.xml {
     requires java.xml;
 
     exports io.github.qishr.cascara.lang.xml;
-
-    opens io.github.qishr.cascara.lang.xml;
+    exports io.github.qishr.cascara.lang.xml.ast;
+    exports io.github.qishr.cascara.lang.xml.exception;
+    exports io.github.qishr.cascara.lang.xml.processor;
+    exports io.github.qishr.cascara.lang.xml.token;
 }

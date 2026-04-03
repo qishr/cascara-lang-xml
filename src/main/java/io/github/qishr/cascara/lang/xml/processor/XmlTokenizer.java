@@ -1,6 +1,8 @@
-package io.github.qishr.cascara.lang.xml;
+package io.github.qishr.cascara.lang.xml.processor;
 
 import io.github.qishr.cascara.common.diagnostic.Reporter;
+import io.github.qishr.cascara.lang.xml.exception.XmlException;
+import io.github.qishr.cascara.lang.xml.token.XmlToken;
 
 import javax.xml.stream.*;
 
@@ -17,7 +19,7 @@ public class XmlTokenizer {
 
     public List<XmlToken> tokenize(String xmlString) throws XmlException {
         if (xmlString == null) {
-            throw new XmlException("Null source string", null, null);
+            throw new XmlException("Null source string", null);
         }
         try {
             List<XmlToken> tokens = new ArrayList<>();
@@ -84,7 +86,7 @@ public class XmlTokenizer {
             }
             return tokens;
         } catch (XMLStreamException e) {
-            throw new XmlException("XML tokenizer error: " + e.getMessage(), e, null);
+            throw new XmlException("XML tokenizer error: " + e.getMessage(), e);
         }
     }
 
