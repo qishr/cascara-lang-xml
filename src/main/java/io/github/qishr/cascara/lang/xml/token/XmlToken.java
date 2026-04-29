@@ -3,13 +3,13 @@ package io.github.qishr.cascara.lang.xml.token;
 public class XmlToken {
     public enum Type { START_TAG, END_TAG, ATTRIBUTE, TEXT, COMMENT, CDATA, PROCESSING_INSTRUCTION }
 
-    private final Type type;
+    private final XmlTokenType type;
     private final String lexeme;
     private final int line;
     private final int column;
     private final long offset;
 
-    public XmlToken(Type type, String lexeme, int line, int column, long offset) {
+    public XmlToken(XmlTokenType type, String lexeme, int line, int column, long offset) {
         this.type = type;
         this.lexeme = lexeme;
         this.line = line;
@@ -23,7 +23,7 @@ public class XmlToken {
                              type, lexeme.replace('\n', ' '), line, column, offset);
     }
 
-    public Type getType() {
+    public XmlTokenType getType() {
         return type;
     }
 
@@ -31,11 +31,11 @@ public class XmlToken {
         return lexeme;
     }
 
-    public int getLine() {
+    public int getStartLine() {
         return line;
     }
 
-    public int getColumn() {
+    public int getStartColumn() {
         return column;
     }
 

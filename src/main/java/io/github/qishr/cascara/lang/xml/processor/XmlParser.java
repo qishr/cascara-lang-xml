@@ -29,7 +29,7 @@ public class XmlParser {
 
         for (XmlToken token : tokens) {
             switch (token.getType()) {
-                case START_TAG:
+                case TAG_START:
                     // Create a new node and push it onto the stack
                     XmlNode newNode = new XmlNode(token.getLexeme().replaceAll("[</>]", "")); // Clean up tag name
 
@@ -39,7 +39,7 @@ public class XmlParser {
                     nodeStack.push(newNode);
                     break;
 
-                case ATTRIBUTE:
+                case ATTR_NAME:
                     // Attributes must immediately follow a START_TAG.
                     if (!nodeStack.isEmpty()) {
                         XmlNode current = nodeStack.peek();
@@ -60,7 +60,7 @@ public class XmlParser {
                     }
                     break;
 
-                case END_TAG:
+                case TAG_END:
                     // Pop the node and attach it to its parent
                     if (!nodeStack.isEmpty()) {
                         XmlNode completedNode = nodeStack.pop();

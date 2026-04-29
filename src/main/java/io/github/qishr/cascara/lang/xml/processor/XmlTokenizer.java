@@ -3,6 +3,7 @@ package io.github.qishr.cascara.lang.xml.processor;
 import io.github.qishr.cascara.common.diagnostic.Reporter;
 import io.github.qishr.cascara.lang.xml.exception.XmlException;
 import io.github.qishr.cascara.lang.xml.token.XmlToken;
+import io.github.qishr.cascara.lang.xml.token.XmlTokenType;
 
 import javax.xml.stream.*;
 
@@ -47,7 +48,7 @@ public class XmlTokenizer {
                     case XMLStreamConstants.START_ELEMENT:
                         // 1. Token for the opening tag name
                         String tagName = reader.getLocalName();
-                        tokens.add(new XmlToken(XmlToken.Type.START_TAG, "<" + tagName + ">", line, column, offset));
+                        tokens.add(new XmlToken(XmlTokenType.TAG_START, "<" + tagName + ">", line, column, offset));
 
                         // 2. Tokens for all attributes
                         for (int i = 0; i < reader.getAttributeCount(); i++) {
@@ -55,26 +56,26 @@ public class XmlTokenizer {
                                                             reader.getAttributeLocalName(i),
                                                             reader.getAttributeValue(i));
                             // Note: Location of attributes is generally the same as the start tag event
-                            tokens.add(new XmlToken(XmlToken.Type.ATTRIBUTE, attrLexeme, line, column, offset));
+                            tokens.add(new XmlToken(XmlTokenType.ATTR_NAME, attrLexeme, line, column, offset));
                         }
                         break;
 
                     case XMLStreamConstants.END_ELEMENT:
                         // Token for the closing tag
-                        token = new XmlToken(XmlToken.Type.END_TAG, "</" + reader.getLocalName() + ">", line, column, offset);
+                        token = new XmlToken(XmlTokenType.TAG_END, "</" + reader.getLocalName() + ">", line, column, offset);
                         break;
 
                     case XMLStreamConstants.CHARACTERS:
                         // Token for the element text content (lexeme is the actual content)
                         String text = reader.getText();
                         if (text.trim().length() > 0) {
-                            token = new XmlToken(XmlToken.Type.TEXT, text, line, column, offset);
+                            token = new XmlToken(XmlTokenType.TEXT, text, line, column, offset);
                         }
                         break;
 
                     case XMLStreamConstants.COMMENT:
                         // Token for comments
-                        token = new XmlToken(XmlToken.Type.COMMENT, reader.getText(), line, column, offset);
+                        token = new XmlToken(XmlTokenType.COMMENT, reader.getText(), line, column, offset);
                         break;
 
                     // Add cases for CDATA, PI, etc., as needed for full highlighting
