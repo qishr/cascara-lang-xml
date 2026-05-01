@@ -40,7 +40,7 @@ public class XmlTokenizer {
                 int line = loc.getLineNumber();
                 int column = loc.getColumnNumber();
                 // The JAXP Location API provides the exact character offset
-                long offset = loc.getCharacterOffset();
+                int offset = loc.getCharacterOffset();
 
                 XmlToken token = null;
 
