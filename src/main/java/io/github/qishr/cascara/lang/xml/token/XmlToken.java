@@ -1,15 +1,15 @@
 package io.github.qishr.cascara.lang.xml.token;
 
-public class XmlToken {
-    public enum Type { START_TAG, END_TAG, ATTRIBUTE, TEXT, COMMENT, CDATA, PROCESSING_INSTRUCTION }
+import io.github.qishr.cascara.common.lang.token.Token;
 
-    private final Type type;
+public class XmlToken implements Token {
+    private final XmlTokenType type;
     private final String lexeme;
     private final int line;
     private final int column;
-    private final long offset;
+    private final int offset;
 
-    public XmlToken(Type type, String lexeme, int line, int column, long offset) {
+    public XmlToken(XmlTokenType type, String lexeme, int line, int column, int offset) {
         this.type = type;
         this.lexeme = lexeme;
         this.line = line;
@@ -23,7 +23,7 @@ public class XmlToken {
                              type, lexeme.replace('\n', ' '), line, column, offset);
     }
 
-    public Type getType() {
+    public XmlTokenType getType() {
         return type;
     }
 
@@ -31,17 +31,21 @@ public class XmlToken {
         return lexeme;
     }
 
-    public int getLine() {
+    public int getStartLine() {
         return line;
     }
 
-    public int getColumn() {
+    public int getStartColumn() {
         return column;
     }
 
-    public long getOffset() {
+    public int getOffset() {
         return offset;
     }
 
-
+    @Override
+    public Object getValue() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getValue'");
+    }
 }
