@@ -1,29 +1,54 @@
 package io.github.qishr.cascara.lang.xml.processor;
 
 import io.github.qishr.cascara.common.diagnostic.Reporter;
+import io.github.qishr.cascara.common.lang.processor.Parser;
 import io.github.qishr.cascara.lang.xml.XmlDocument;
 import io.github.qishr.cascara.lang.xml.ast.XmlNode;
-import io.github.qishr.cascara.lang.xml.exception.XmlException;
+import io.github.qishr.cascara.lang.xml.exception.XmlParserException;
 import io.github.qishr.cascara.lang.xml.token.XmlToken;
 
+import java.net.URI;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
-public class XmlParser {
+public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser<XmlDocument, XmlToken> {
     private List<XmlToken> tokens;
-
-//    public XmlParserImpl(List<XmlToken> tokens) {
-//        this.tokens = tokens;
-//    }
+    private URI uri;
 
     public XmlParser() {
 
     }
 
-    public XmlDocument parse(String xmlString) throws XmlException {
+    @Override protected XmlParser self() { return this; }
+
+    public XmlDocument parse(String xmlString) throws XmlParserException {
+        return parse(xmlString, null);
+    }
+
+    public XmlDocument parse(String xmlString, URI uri) throws XmlParserException {
         XmlTokenizer tokenizer = new XmlTokenizer();
-        this.tokens = tokenizer.tokenize(xmlString);
+        this.tokens = tokenizer.tokenize(xmlString, uri);
+        return parseDocument(tokens, uri);
+    }
+
+    /// {@inheritDoc}
+    @Override
+    public XmlDocument parse(List<XmlToken> tokens) throws XmlParserException {
+        return parse(tokens, null);
+    }
+
+
+    /// {@inheritDoc}
+    @Override
+    public XmlDocument parse(List<XmlToken> tokens, URI uri) throws XmlParserException {
+        return parseDocument(tokens, uri);
+    }
+
+
+    public XmlDocument parseDocument(List<XmlToken> tokens, URI uri) throws XmlParserException {
+        this.uri = uri;
+        this.tokens = tokens;
         Deque<XmlNode> nodeStack = new ArrayDeque<>();
         XmlNode rootNode = null;
 
@@ -78,10 +103,5 @@ public class XmlParser {
             }
         }
         return new XmlDocument(rootNode);
-    }
-
-    // @Override
-    public void setReporter(Reporter reporter) {
-
     }
 }

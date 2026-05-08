@@ -1,26 +1,34 @@
 package io.github.qishr.cascara.lang.xml.processor;
 
-import io.github.qishr.cascara.common.diagnostic.Reporter;
-import io.github.qishr.cascara.lang.xml.exception.XmlException;
+import io.github.qishr.cascara.common.lang.processor.Tokenizer;
+import io.github.qishr.cascara.lang.xml.exception.XmlParserException;
 import io.github.qishr.cascara.lang.xml.token.XmlToken;
 import io.github.qishr.cascara.lang.xml.token.XmlTokenType;
 
 import javax.xml.stream.*;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlTokenizer {
+public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements Tokenizer<XmlToken> {
+    private URI uri;
 
     public XmlTokenizer() {
     }
 
-    public List<XmlToken> tokenize(String xmlString) throws XmlException {
+    @Override protected XmlTokenizer self() { return this; }
+
+    public List<XmlToken> tokenize(String xmlString) throws XmlParserException {
+        return tokenize(xmlString, null);
+    }
+
+    public List<XmlToken> tokenize(String xmlString, URI uri) throws XmlParserException {
+        this.uri = uri;
         if (xmlString == null) {
-            throw new XmlException("Null source string", null);
+            throw new XmlParserException("Null source string", null);
         }
         try {
             List<XmlToken> tokens = new ArrayList<>();
@@ -87,25 +95,7 @@ public class XmlTokenizer {
             }
             return tokens;
         } catch (XMLStreamException e) {
-            throw new XmlException("XML tokenizer error: " + e.getMessage(), e);
+            throw new XmlParserException("XML tokenizer error: " + e.getMessage(), e);
         }
     }
-
-    // @Override
-    public void setReporter(Reporter reporter) {
-
-    }
-
-    // public static void main(String[] args) {
-    //     try {
-    //         // Replace with your XML file path
-    //         List<Token> tokens = new StaxTokenizer().tokenize("data.xml");
-
-    //         // Print the first 10 tokens for verification
-    //         tokens.stream().limit(10).forEach(System.out::println);
-
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
 }
