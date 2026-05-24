@@ -23,7 +23,7 @@ public abstract class AbstractXmlProcessor<P extends Processor> implements Proce
     public Properties getCapabilities() {
         if (capabilities == null) {
             capabilities = new Properties();
-            capabilities.set("processor.contentType", "text/xml");
+            capabilities.set("contentType", "text/xml");
         }
         return capabilities;
     }
