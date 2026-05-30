@@ -11,8 +11,8 @@ import io.github.qishr.cascara.lang.xml.XmlOptions;
 public abstract class AbstractXmlProcessor<P extends Processor> implements Processor {
     public static final ContentType XML_CONTENT_TYPE = new ContentType("Extensible markup language")
             .withSuffix(".xml")
-            .withMimeType("text/xml")
-            .withMimeType("application/xml");
+            .withType("text/xml")
+            .withType("application/xml");
 
     protected XmlOptions options = new XmlOptions();
     protected Reporter reporter = new NoOpReporter();

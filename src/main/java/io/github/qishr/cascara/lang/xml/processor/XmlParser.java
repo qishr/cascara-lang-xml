@@ -1,10 +1,8 @@
 package io.github.qishr.cascara.lang.xml.processor;
 
-import io.github.qishr.cascara.common.diagnostic.Reporter;
 import io.github.qishr.cascara.common.lang.processor.Parser;
 import io.github.qishr.cascara.lang.xml.XmlDocument;
 import io.github.qishr.cascara.lang.xml.ast.XmlNode;
-import io.github.qishr.cascara.lang.xml.exception.XmlParserException;
 import io.github.qishr.cascara.lang.xml.token.XmlToken;
 
 import java.net.URI;
@@ -22,11 +20,11 @@ public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser
 
     @Override protected XmlParser self() { return this; }
 
-    public XmlDocument parse(String xmlString) throws XmlParserException {
+    public XmlDocument parse(String xmlString) {
         return parse(xmlString, null);
     }
 
-    public XmlDocument parse(String xmlString, URI uri) throws XmlParserException {
+    public XmlDocument parse(String xmlString, URI uri) {
         XmlTokenizer tokenizer = new XmlTokenizer();
         this.tokens = tokenizer.tokenize(xmlString, uri);
         return parseDocument(tokens, uri);
@@ -34,19 +32,19 @@ public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser
 
     /// {@inheritDoc}
     @Override
-    public XmlDocument parse(List<XmlToken> tokens) throws XmlParserException {
+    public XmlDocument parse(List<XmlToken> tokens) {
         return parse(tokens, null);
     }
 
 
     /// {@inheritDoc}
     @Override
-    public XmlDocument parse(List<XmlToken> tokens, URI uri) throws XmlParserException {
+    public XmlDocument parse(List<XmlToken> tokens, URI uri) {
         return parseDocument(tokens, uri);
     }
 
 
-    public XmlDocument parseDocument(List<XmlToken> tokens, URI uri) throws XmlParserException {
+    public XmlDocument parseDocument(List<XmlToken> tokens, URI uri) {
         this.uri = uri;
         this.tokens = tokens;
         Deque<XmlNode> nodeStack = new ArrayDeque<>();
@@ -103,5 +101,9 @@ public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser
             }
         }
         return new XmlDocument(rootNode);
+    }
+
+    private void error(XmlToken token, String message) {
+        reporter.errorAt(token, uri, message);
     }
 }
