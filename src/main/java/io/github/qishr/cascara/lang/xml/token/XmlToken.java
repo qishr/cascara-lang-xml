@@ -5,17 +5,27 @@ import io.github.qishr.cascara.common.lang.token.Token;
 public class XmlToken implements Token {
     private final XmlTokenType type;
     private final String lexeme;
+    private final Object value;
+    private final int offset;
     private final int line;
     private final int column;
-    private final int offset;
 
-    public XmlToken(XmlTokenType type, String lexeme, int line, int column, int offset) {
+    public XmlToken(XmlTokenType type, String lexeme, Object value,  int offset, int line, int column) {
         this.type = type;
         this.lexeme = lexeme;
+        this.value = value;
+        this.offset = offset;
         this.line = line;
         this.column = column;
-        this.offset = offset;
     }
+
+    // public XmlToken(XmlTokenType type, String lexeme, int line, int column, int offset) {
+    //     this.type = type;
+    //     this.lexeme = lexeme;
+    //     this.line = line;
+    //     this.column = column;
+    //     this.offset = offset;
+    // }
 
     @Override
     public String toString() {
@@ -23,29 +33,33 @@ public class XmlToken implements Token {
                              type, lexeme.replace('\n', ' '), line, column, offset);
     }
 
+    @Override
     public XmlTokenType getType() {
         return type;
     }
 
+    @Override
     public String getLexeme() {
         return lexeme;
     }
 
+    @Override
+    public Object getValue() {
+        return value;
+    }
+
+    @Override
     public int getStartLine() {
         return line;
     }
 
+    @Override
     public int getStartColumn() {
         return column;
     }
 
+    @Override
     public int getOffset() {
         return offset;
-    }
-
-    @Override
-    public Object getValue() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getValue'");
     }
 }
