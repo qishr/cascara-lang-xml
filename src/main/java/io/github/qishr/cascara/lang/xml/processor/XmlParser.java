@@ -104,6 +104,6 @@ public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser
     }
 
     private void error(XmlToken token, String message) {
-        reporter.errorAt(token, uri, message);
+        reporter.errorAt(uri, token, null, message);
     }
 }

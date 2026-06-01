@@ -121,7 +121,7 @@ public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements 
 
     private void error(String message, String lexeme) {
         XmlToken token = addToken(XmlTokenType.ERROR, lexeme);
-        reporter.errorAt(token, uri, message);
+        reporter.errorAt(uri, token, null, message);
     }
 
     private XmlToken addToken(XmlTokenType type, String text) {
