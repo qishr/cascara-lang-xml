@@ -5,15 +5,15 @@ import io.github.qishr.cascara.common.lang.token.Token;
 public class XmlToken implements Token {
     private final XmlTokenType type;
     private final String lexeme;
-    private final Object value;
+    private final String content;
     private final int offset;
     private final int line;
     private final int column;
 
-    public XmlToken(XmlTokenType type, String lexeme, Object value,  int offset, int line, int column) {
+    public XmlToken(XmlTokenType type, String lexeme, String content,  int offset, int line, int column) {
         this.type = type;
         this.lexeme = lexeme;
-        this.value = value;
+        this.content = content;
         this.offset = offset;
         this.line = line;
         this.column = column;
@@ -44,8 +44,8 @@ public class XmlToken implements Token {
     }
 
     @Override
-    public Object getValue() {
-        return value;
+    public String getContent() {
+        return content;
     }
 
     @Override
