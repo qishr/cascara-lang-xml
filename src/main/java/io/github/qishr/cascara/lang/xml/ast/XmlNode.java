@@ -1,6 +1,5 @@
 package io.github.qishr.cascara.lang.xml.ast;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +15,6 @@ public class XmlNode implements AstNode {
     private final int startColumn;
     private final int endLine = 0;
     private final int endColumn = 0;
-    private final URI originUri;
     private final List<CommentAstNode> comments = new ArrayList<>();
     private String anchor;
     private XmlToken token;
@@ -31,7 +29,6 @@ public class XmlNode implements AstNode {
         this.name = name;
         startLine = 0;
         startColumn = 0;
-        originUri = null;
     }
 
     public void addChild(XmlNode child) {
@@ -85,8 +82,6 @@ public class XmlNode implements AstNode {
 
     /// {@inheritDoc}
     @Override public int getEndColumn() { return endColumn; }
-    /// {@inheritDoc}
-    @Override public URI getOriginUri() { return originUri; }
 
     /// {@inheritDoc}
     @Override public List<CommentAstNode> getComments() { return comments; }

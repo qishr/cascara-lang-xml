@@ -1,20 +1,22 @@
 package io.github.qishr.cascara.lang.xml.processor;
 
-import io.github.qishr.cascara.common.lang.processor.Tokenizer;
-import io.github.qishr.cascara.lang.xml.token.XmlToken;
-import io.github.qishr.cascara.lang.xml.token.XmlTokenType;
-
-import javax.xml.stream.*;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements Tokenizer<XmlToken> {
-    private URI uri;
+import javax.xml.stream.Location;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
+import io.github.qishr.cascara.common.lang.processor.Tokenizer;
+import io.github.qishr.cascara.lang.xml.token.XmlToken;
+import io.github.qishr.cascara.lang.xml.token.XmlTokenType;
+
+public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements Tokenizer<XmlToken> {
     // private String source;
     private int line;
     private int column;
@@ -26,19 +28,13 @@ public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements 
 
     @Override protected XmlTokenizer self() { return this; }
 
+    @Override
     public List<XmlToken> tokenize(String source) {
-        return tokenize(source, null);
-    }
-
-    public List<XmlToken> tokenize(String source, URI uri) {
-        // this.source = source;
-        this.uri = uri;
         tokens.clear();
 
         if (source == null) {
             error("Null source string", "");
             return tokens;
-            // throw new XmlParserException("Null source string", null);
         }
         try {
             XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -58,8 +54,6 @@ public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements 
                 column = loc.getColumnNumber();
                 // The JAXP Location API provides the exact character offset
                 offset = loc.getCharacterOffset();
-
-                XmlToken token = null;
 
                 switch (eventType) {
                     case XMLStreamConstants.START_ELEMENT:
@@ -121,7 +115,7 @@ public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements 
 
     private void error(String message, String lexeme) {
         XmlToken token = addToken(XmlTokenType.ERROR, lexeme);
-        reporter.errorAt(token, uri, message);
+        reporter.errorAt(token, null, message);
     }
 
     private XmlToken addToken(XmlTokenType type, String text) {
