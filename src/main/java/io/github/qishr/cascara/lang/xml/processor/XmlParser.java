@@ -1,52 +1,34 @@
 package io.github.qishr.cascara.lang.xml.processor;
 
+import io.github.qishr.cascara.common.lang.exception.ParserException;
 import io.github.qishr.cascara.common.lang.processor.Parser;
-import io.github.qishr.cascara.lang.xml.XmlDocument;
 import io.github.qishr.cascara.lang.xml.ast.XmlNode;
 import io.github.qishr.cascara.lang.xml.token.XmlToken;
 
-import java.net.URI;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
-public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser<XmlDocument, XmlToken> {
-    private List<XmlToken> tokens;
-    private URI uri;
+public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser<XmlNode, XmlToken> {
 
     public XmlParser() {
-
+        // Default constructor for SPI
     }
 
     @Override protected XmlParser self() { return this; }
 
-    public XmlDocument parse(String xmlString) {
-        return parse(xmlString, null);
-    }
-
-    public XmlDocument parse(String xmlString, URI uri) {
+    @Override
+    public XmlNode parse(String text) {
         XmlTokenizer tokenizer = new XmlTokenizer();
-        this.tokens = tokenizer.tokenize(xmlString, uri);
-        return parseDocument(tokens, uri);
+        tokenizer.setOptions(options);
+        tokenizer.setReporter(reporter);
+        return parse(tokenizer.tokenize(text));
     }
 
     /// {@inheritDoc}
     @Override
-    public XmlDocument parse(List<XmlToken> tokens) {
-        return parse(tokens, null);
-    }
-
-
-    /// {@inheritDoc}
-    @Override
-    public XmlDocument parse(List<XmlToken> tokens, URI uri) {
-        return parseDocument(tokens, uri);
-    }
-
-
-    public XmlDocument parseDocument(List<XmlToken> tokens, URI uri) {
-        this.uri = uri;
-        this.tokens = tokens;
+    public XmlNode parse(List<XmlToken> tokens) {
+        // this.tokens = tokens;
         Deque<XmlNode> nodeStack = new ArrayDeque<>();
         XmlNode rootNode = null;
 
@@ -100,10 +82,13 @@ public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser
                     break;
             }
         }
-        return new XmlDocument(rootNode);
+        return rootNode;
     }
 
     private void error(XmlToken token, String message) {
-        reporter.errorAt(uri, token, null, message);
+        reporter.errorAt(token, null, message);
+        if (!reporter.collectsProblems()) {
+            throw new ParserException(message, token.getStartLine(), token.getStartColumn());
+        }
     }
 }
