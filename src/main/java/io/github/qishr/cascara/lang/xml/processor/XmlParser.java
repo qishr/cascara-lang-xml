@@ -1,5 +1,6 @@
 package io.github.qishr.cascara.lang.xml.processor;
 
+import io.github.qishr.cascara.common.diagnostic.code.DiagnosticCode;
 import io.github.qishr.cascara.common.lang.exception.ParserException;
 import io.github.qishr.cascara.common.lang.processor.Parser;
 import io.github.qishr.cascara.lang.xml.ast.XmlNode;
@@ -85,10 +86,10 @@ public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser
         return rootNode;
     }
 
-    private void error(XmlToken token, String message) {
-        reporter.errorAt(token, null, message);
+    private void error(XmlToken token, DiagnosticCode code, Object... details) {
+        reporter.errorAt(token, code, details);
         if (!reporter.collectsProblems()) {
-            throw new ParserException(message, token.getStartLine(), token.getStartColumn());
+            throw new ParserException(token, code, details);
         }
     }
 }
