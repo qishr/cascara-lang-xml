@@ -130,4 +130,22 @@ public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements 
         tokens.add(token);
         return token;
     }
+
+    @Override
+    public void open(String text) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'open'");
+    }
+
+    @Override
+    public void open(InputStream is) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'open'");
+    }
+
+    @Override
+    public XmlToken nextToken() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'nextToken'");
+    }
 }

@@ -1,6 +1,6 @@
 package io.github.qishr.cascara.lang.xml;
 
-import io.github.qishr.cascara.common.lang.LanguageOptions;
+import io.github.qishr.cascara.common.lang.util.LanguageOptions;
 
 public class XmlOptions extends LanguageOptions<XmlOptions> {
     private boolean strict = false;
