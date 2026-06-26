@@ -6,6 +6,7 @@ import io.github.qishr.cascara.common.lang.processor.Parser;
 import io.github.qishr.cascara.lang.xml.ast.XmlNode;
 import io.github.qishr.cascara.lang.xml.token.XmlToken;
 
+import java.io.InputStream;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
@@ -91,5 +92,11 @@ public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser
         if (!reporter.collectsProblems()) {
             throw new ParserException(token, code, details);
         }
+    }
+
+    @Override
+    public XmlNode parse(InputStream is) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'parse'");
     }
 }
