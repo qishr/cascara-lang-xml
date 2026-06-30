@@ -2,7 +2,8 @@ package io.github.qishr.cascara.lang.xml.processor;
 
 import io.github.qishr.cascara.common.diagnostic.code.DiagnosticCode;
 import io.github.qishr.cascara.common.lang.exception.ParserException;
-import io.github.qishr.cascara.common.lang.processor.Parser;
+import io.github.qishr.cascara.common.lang.processor.AstParser;
+import io.github.qishr.cascara.common.lang.processor.Tokenizer;
 import io.github.qishr.cascara.lang.xml.ast.XmlNode;
 import io.github.qishr.cascara.lang.xml.token.XmlToken;
 
@@ -11,13 +12,13 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
-public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser<XmlNode, XmlToken> {
+public class XmlAstParser extends AbstractXmlProcessor<XmlAstParser> implements AstParser<XmlNode, XmlToken> {
 
-    public XmlParser() {
+    public XmlAstParser() {
         // Default constructor for SPI
     }
 
-    @Override protected XmlParser self() { return this; }
+    @Override protected XmlAstParser self() { return this; }
 
     @Override
     public XmlNode parse(String text) {
@@ -96,6 +97,12 @@ public class XmlParser extends AbstractXmlProcessor<XmlParser> implements Parser
 
     @Override
     public XmlNode parse(InputStream is) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'parse'");
+    }
+
+    @Override
+    public XmlNode parse(Tokenizer<XmlToken> tokenizer) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'parse'");
     }
