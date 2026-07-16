@@ -8,6 +8,7 @@ import io.github.qishr.cascara.lang.xml.ast.XmlNode;
 import io.github.qishr.cascara.lang.xml.token.XmlToken;
 
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
@@ -103,6 +104,12 @@ public class XmlAstParser extends AbstractXmlProcessor<XmlAstParser> implements 
 
     @Override
     public XmlNode parse(Tokenizer<XmlToken> tokenizer) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'parse'");
+    }
+
+    @Override
+    public XmlNode parse(Reader reader) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'parse'");
     }
