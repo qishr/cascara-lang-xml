@@ -2,6 +2,7 @@ package io.github.qishr.cascara.lang.xml.processor;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -147,5 +148,11 @@ public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements 
     public XmlToken nextToken() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'nextToken'");
+    }
+
+    @Override
+    public void open(Reader reader) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'open'");
     }
 }

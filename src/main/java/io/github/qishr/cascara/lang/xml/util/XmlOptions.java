@@ -1,4 +1,4 @@
-package io.github.qishr.cascara.lang.xml;
+package io.github.qishr.cascara.lang.xml.util;
 
 import io.github.qishr.cascara.common.lang.util.LanguageOptions;
 
