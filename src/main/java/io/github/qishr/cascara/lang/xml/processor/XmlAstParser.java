@@ -48,7 +48,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
-public class XmlAstParser extends AbstractXmlProcessor<XmlAstParser> implements AstParser<XmlNode, XmlToken> {
+public class XmlAstParser extends AbstractXmlProcessor<XmlAstParser> implements AstParser<XmlNode, XmlToken, XmlTokenizer> {
 
     public XmlAstParser() {
         // Default constructor for SPI
@@ -138,14 +138,26 @@ public class XmlAstParser extends AbstractXmlProcessor<XmlAstParser> implements 
     }
 
     @Override
-    public XmlNode parse(Tokenizer<XmlToken> tokenizer) {
+    public XmlNode parse(Reader reader) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'parse'");
     }
 
     @Override
-    public XmlNode parse(Reader reader) {
+    public XmlNode parse(XmlTokenizer tokenizer) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'parse'");
+    }
+
+    @Override
+    public List<XmlToken> getTokens() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTokens'");
+    }
+
+    @Override
+    public XmlTokenizer getTokenizer() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTokenizer'");
     }
 }

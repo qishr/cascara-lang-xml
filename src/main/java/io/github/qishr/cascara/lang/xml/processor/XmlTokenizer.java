@@ -66,6 +66,11 @@ public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements 
     @Override protected XmlTokenizer self() { return this; }
 
     @Override
+    public int getOffset() {
+        return offset;
+    }
+
+    @Override
     public List<XmlToken> tokenize(String source) {
         tokens.clear();
 
