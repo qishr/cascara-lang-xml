@@ -71,6 +71,11 @@ public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements 
     }
 
     @Override
+    public List<XmlToken> tokenize(byte[] data) {
+        return tokenize(new String(data));
+    }
+
+    @Override
     public List<XmlToken> tokenize(String source) {
         tokens.clear();
 
