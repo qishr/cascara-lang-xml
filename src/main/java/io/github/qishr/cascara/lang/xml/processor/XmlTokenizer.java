@@ -48,7 +48,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import io.github.qishr.cascara.common.diagnostic.code.GenericDiagnosticCode;
+import io.github.qishr.cascara.common.diagnostic.message.GenericMessage;
 import io.github.qishr.cascara.common.lang.processor.Tokenizer;
 import io.github.qishr.cascara.lang.xml.token.XmlToken;
 import io.github.qishr.cascara.lang.xml.token.XmlTokenType;
@@ -162,7 +162,7 @@ public class XmlTokenizer extends AbstractXmlProcessor<XmlTokenizer> implements 
 
     private void error(String message, String lexeme) {
         XmlToken token = addToken(XmlTokenType.ERROR, lexeme);
-        reporter.errorAt(token, GenericDiagnosticCode.ERROR, message);
+        reporter.errorAt(token, GenericMessage.ERROR, message);
     }
 
     private XmlToken addToken(XmlTokenType type, String text) {
