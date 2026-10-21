@@ -32,7 +32,7 @@
 // you do not wish to do so, delete this exception statement from your
 // version.
 
-
+/// Cascara XML language processors.
 module cascara.lang.xml {
     requires transitive cascara.common;
 
