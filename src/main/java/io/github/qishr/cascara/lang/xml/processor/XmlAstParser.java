@@ -35,7 +35,7 @@
 
 package io.github.qishr.cascara.lang.xml.processor;
 
-import io.github.qishr.cascara.common.diagnostic.message.DiagnosticMessage;
+import io.github.qishr.cascara.common.diagnostic.message.LocalizableMessage;
 import io.github.qishr.cascara.common.lang.diagnostic.ParserException;
 import io.github.qishr.cascara.common.lang.processor.AstParser;
 import io.github.qishr.cascara.common.lang.processor.Tokenizer;
@@ -59,7 +59,7 @@ public class XmlAstParser extends AbstractXmlProcessor<XmlAstParser> implements 
     @Override
     public XmlNode parse(String text) {
         XmlTokenizer tokenizer = new XmlTokenizer();
-        tokenizer.setOptions(options);
+        tokenizer.setConfig(options);
         tokenizer.setReporter(reporter);
         return parse(tokenizer.tokenize(text));
     }
@@ -124,7 +124,7 @@ public class XmlAstParser extends AbstractXmlProcessor<XmlAstParser> implements 
         return rootNode;
     }
 
-    private void error(XmlToken token, DiagnosticMessage code, Object... details) {
+    private void error(XmlToken token, LocalizableMessage code, Object... details) {
         reporter.errorAt(token, code, details);
         if (!reporter.collectsProblems()) {
             throw new ParserException(token, code, details);

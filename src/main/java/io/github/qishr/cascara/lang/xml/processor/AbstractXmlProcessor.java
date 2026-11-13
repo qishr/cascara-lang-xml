@@ -37,7 +37,7 @@ package io.github.qishr.cascara.lang.xml.processor;
 
 import io.github.qishr.cascara.common.diagnostic.report.NoOpReporter;
 import io.github.qishr.cascara.common.diagnostic.report.Reporter;
-import io.github.qishr.cascara.common.lang.util.LanguageOptions;
+import io.github.qishr.cascara.common.lang.util.LanguageConfig;
 import io.github.qishr.cascara.common.lang.processor.Processor;
 import io.github.qishr.cascara.common.util.ContentType;
 import io.github.qishr.cascara.common.property.Properties;
@@ -78,7 +78,7 @@ public abstract class AbstractXmlProcessor<P extends Processor> implements Proce
 
     /// {@inheritDoc}
     @Override
-    public P setOptions(LanguageOptions<?> options) {
+    public P setConfig(LanguageConfig<?> options) {
         this.options = (XmlOptions) options;
         return self();
     }

@@ -35,9 +35,9 @@
 
 package io.github.qishr.cascara.lang.xml.util;
 
-import io.github.qishr.cascara.common.lang.util.LanguageOptions;
+import io.github.qishr.cascara.common.lang.util.LanguageConfig;
 
-public class XmlOptions extends LanguageOptions<XmlOptions> {
+public class XmlOptions extends LanguageConfig<XmlOptions> {
     private boolean strict = false;
 
     /// Sets whether to always output the '---' document start marker.
