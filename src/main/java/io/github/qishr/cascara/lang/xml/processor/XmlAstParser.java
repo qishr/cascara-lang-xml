@@ -35,7 +35,7 @@
 
 package io.github.qishr.cascara.lang.xml.processor;
 
-import io.github.qishr.cascara.common.diagnostic.message.LocalizableMessage;
+import io.github.qishr.cascara.common.i18n.LocalizableMessage;
 import io.github.qishr.cascara.common.lang.diagnostic.ParserException;
 import io.github.qishr.cascara.common.lang.processor.AstParser;
 import io.github.qishr.cascara.common.lang.processor.Tokenizer;
